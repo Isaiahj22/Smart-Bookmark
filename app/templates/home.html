@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartBook</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      scroll-behavior: smooth;
+      background-color: #f6f1eb;
+      color: #3a3a3a;
+      overflow-x: hidden;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    /* Background Colors */
+    .hero {
+      background-color: #f1e8dd;
+    }
+
+    .role-section {
+      background-color: #f9f6f2;
+    }
+
+    .how-section {
+      background-color: #f6f1eb;
+    }
+
+    .testimonials-section {
+      background-color: #f9f6f2;
+    }
+
+    .why-section {
+      background-color: #f1e8dd;
+    }
+
+    .gallery-section {
+      background-color: #f6f1eb;
+    }
+
+    .mission-section {
+      background-color: #eae3db;
+    }
+
+    /* Hero Section */
+    .hero h1 {
+      font-size: 5em;
+      color: #3a3a3a;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 2s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Role Section */
+    .role-section h2 {
+      font-size: 2.8em;
+      margin-bottom: 30px;
+    }
+
+    .role-buttons {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .role-button {
+      background-color: transparent;
+      border: 2px solid #3a3a3a;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .role-button:hover {
+      background-color: #3a3a3a;
+      color: white;
+    }
+
+    /* How It Works */
+    .how-section h2 {
+      font-size: 2.8em;
+      margin-bottom: 50px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .timeline-step {
+      max-width: 600px;
+    }
+
+    .circle {
+      width: 60px;
+      height: 60px;
+      background-color: #eae3db;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      margin: 0 auto 20px auto;
+      font-weight: bold;
+    }
+
+    .timeline-step h3 {
+      font-size: 1.6em;
+      margin-bottom: 10px;
+    }
+
+    .timeline-step p {
+      font-size: 1em;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Testimonials */
+    .testimonials-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 40px;
+    }
+
+    .testimonial-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .testimonial {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+      max-width: 300px;
+      font-size: 1em;
+      color: #555;
+    }
+
+    /* Why Section */
+    .why-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .why-left, .why-right {
+      flex: 1;
+    }
+
+    .why-left h2 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+    }
+
+    .learn-more {
+      margin-top: 20px;
+      padding: 10px 25px;
+      border: 2px solid #3a3a3a;
+      background: transparent;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .learn-more:hover {
+      background-color: #3a3a3a;
+      color: white;
+    }
+
+    .why-point {
+      margin-bottom: 30px;
+    }
+
+    .why-point h3 {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+
+    .why-point p {
+      color: #555;
+      font-size: 1em;
+      line-height: 1.6;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #d3cec9;
+      margin: 20px 0;
+    }
+
+    /* Gallery */
+    .gallery-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInGallery 1s ease forwards;
+    }
+
+    @keyframes fadeInGallery {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mission */
+    .mission-box {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.08);
+      font-size: 1.5em;
+      max-width: 600px;
+      line-height: 1.6;
+      color: #3a3a3a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="section hero">
+    <h1>SmartBook</h1>
+  </div>
+
+  <!-- Role Section -->
+  <div class="section role-section">
+    <h2>Who Are You?</h2>
+    <div class="role-buttons">
+      <button class="role-button" onclick="window.location.href='/signup-teacher'">I'm a Teacher</button>
+      <button class="role-button" onclick="window.location.href='/signup-student'">I'm a Student</button>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="section how-section">
+    <h2>How SmartBook Works</h2>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="circle">01</div>
+        <h3>Scan Your Book</h3>
+        <p>Start your journey by scanning a page from your book using SmartBook.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="circle">02</div>
+        <h3>Choose Your Path</h3>
+        <p>Students can either explore related vocabulary or take a fun quiz based on the book.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="circle">03</div>
+        <h3>Share Progress</h3>
+        <p>Teachers receive real-time updates on student vocabulary growth and quiz scores.</p>
+      </div>
+      <div class="timeline-step">
+        <div class="circle">04</div>
+        <h3>Celebrate Success</h3>
+        <p>Earn badges and certificates as students master their books!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="section testimonials-section">
+    <h2>What Readers Are Saying</h2>
+    <div class="testimonial-container">
+      <div class="testimonial">"SmartBook made reading fun again!" – Mia, 3rd Grade</div>
+      <div class="testimonial">"My students loved seeing their progress grow." – Teacher</div>
+      <div class="testimonial">"I enjoyed earning certificates for reading books!" – Jacob, 2nd Grade</div>
+    </div>
+  </div>
+
+  <!-- Why SmartBook -->
+  <div class="section why-section">
+    <div class="why-container">
+      <div class="why-left">
+        <h2>Why SmartBook?</h2>
+        <button class="learn-more">Learn More</button>
+      </div>
+      <div class="why-right">
+        <div class="why-point">
+          <h3>🚀 Spark Curiosity</h3>
+          <p>SmartBook promotes critical thinking and exploration through fun interactions.</p>
+        </div>
+        <hr>
+        <div class="why-point">
+          <h3>🌎 Reflect Every Reader</h3>
+          <p>Diverse, inclusive stories that every student can relate to and celebrate.</p>
+        </div>
+        <hr>
+        <div class="why-point">
+          <h3>📚 Support Teachers</h3>
+          <p>Time-saving tools that fit seamlessly into any classroom schedule.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery -->
+  <div class="section gallery-section">
+    <h2>Discover the Joy of Reading</h2>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <!-- Mission -->
+  <div class="section mission-section">
+    <div class="mission-box">
+      "SmartBook inspires every learner to dream bigger through the joy of reading."
+    </div>
+  </div>
+
+  <script>
+    async function loadImages() {
+        const gallery = document.getElementById('gallery');
+        const images = [
+            'https://images.unsplash.com/photo-1512820790803-83ca734da794?crop=entropy&cs=tinysrgb&fit=crop&w=600&h=400&q=80', // Stacked books
+            'https://images.unsplash.com/photo-1519681393784-d120267933ba?crop=entropy&cs=tinysrgb&fit=crop&w=600&h=400&q=80', // Open book & coffee
+            'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?crop=entropy&cs=tinysrgb&fit=crop&w=600&h=400&q=80', // Bookshelf
+            'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?crop=entropy&cs=tinysrgb&fit=crop&w=600&h=400&q=80'  // Child reading
+        ];
+        images.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        gallery.appendChild(img);
+        });
+    }
+    loadImages();
+  </script>
+
+</body>
+</html>
