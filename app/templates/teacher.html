@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Bookmark - Teacher Control</title>
+    
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="/static/css/teacher-style.css">
+    
+    <!-- Lottie Animation Library -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    
+    <!-- JS for Page Logic -->
+    <script src="/static/js/teacher.js" defer></script>
+
+    <!-- Quick fallback style (optional if no external file) -->
+    <style>
+      .highlight {
+        background-color: yellow;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+    </style>
+</head>
+
+<body>
+    <h1>👩‍🏫 Smart Bookmark - Teacher Control</h1>
+
+    <div id="pageText" class="story-text"></div>
+
+    <div class="controls">
+        <button onclick="startReadAlong()">▶ Start Read-Along</button>
+        <button onclick="stopReadAlong()">⏹ Stop Read-Along</button>
+        <button onclick="toggleLanguage()">🌐 Switch Language</button>
+        <button onclick="showAnimation()">✨ Play Animation</button>
+        <button onclick="showVocabulary()">📖 Show Vocabulary</button>
+        <button onclick="launchQuiz()">📝 Launch Quiz</button>
+        <button onclick="nextPage()">➡ Next Page</button>
+    </div>
+
+    <div id="animationArea" style="margin-top: 20px;"></div>
+    <div id="quizArea" style="margin-top: 20px;"></div>
+</body>
+</html>
