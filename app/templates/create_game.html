@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create a New SmartBook Game</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="section hero">
+    <h1>Create a Game</h1>
+    <p>Let AI help you design a fun classroom challenge!</p>
+  </div>
+
+  <!-- Game Creation Form -->
+  <div class="section role-section">
+    <h2>Create a Game for Your Story</h2>
+
+    <form id="gameForm" onsubmit="submitForm(event)">
+      <input type="text" id="story-title" placeholder="Enter your story title" required
+             style="padding:10px; border-radius:10px; border:1px solid #ccc; margin-bottom:10px; width:300px;">
+      <br>
+      <button class="role-button" type="submit">Generate Game</button>
+    </form>
+
+    <div id="generated-game" style="margin-top: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); max-width: 700px;">
+      <p>Submit a story title to generate your game!</p>
+    </div>
+  </div>
+
+  <script>
+    async function submitForm(event) {
+      event.preventDefault();
+
+      const storyTitle = document.getElementById('story-title').value;
+
+      const response = await fetch('/create-game', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ story_title: storyTitle })
+      });
+
+      const data = await response.json();
+      document.getElementById('generated-game').innerText = data.game || "Failed to generate game. Try again.";
+    }
+  </script>
+
+</body>
+</html>

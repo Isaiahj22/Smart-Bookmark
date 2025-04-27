@@ -1,2 +1,4 @@
 fastapi
 uvicorn
+brew install ollama
+ollama run llama2

@@ -4,31 +4,22 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import os
 import json
+import requests  # ✅ Use requests instead of openai!
 
 app = FastAPI()
 templates = Jinja2Templates(directory="app/templates")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Serve static files
+# Mount static files (important if you have frontend assets like CSS, JS)
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-# Home Page
+# === ROUTES ===
+
 @app.get("/", response_class=HTMLResponse)
 def read_home(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
-# Teacher Page
-@app.get("/signup-teacher", response_class=HTMLResponse)
-def signup_teacher(request: Request):
-    return templates.TemplateResponse("teacher.html", {"request": request})
-
-# Student Page
-@app.get("/signup-student", response_class=HTMLResponse)
-def signup_student(request: Request):
-    return templates.TemplateResponse("signup-student.html", {"request": request})
-
-# Voice
 @app.get("/voice/{book_id}")
 def get_voice(book_id: str, lang: str = "en"):
     path = os.path.join(BASE_DIR, "audio", f"{book_id}_{lang}.mp3")
@@ -70,3 +61,45 @@ def get_avatars():
     with open(os.path.join(BASE_DIR, "data", "avatars.json"), "r") as file:
         avatars = json.load(file)
     return JSONResponse(avatars)
+
+# === Create Game Routes ===
+
+@app.get("/create-game", response_class=HTMLResponse)
+async def create_game_page(request: Request):
+    return templates.TemplateResponse("create_game.html", {"request": request})
+
+@app.post("/create-game")
+async def create_game(request: Request):
+    data = await request.json()
+    story_title = data.get("story_title", "")
+
+    if not story_title:
+        return JSONResponse({"error": "Story title is required"}, status_code=400)
+
+    # Build the prompt for Ollama
+    payload = {
+        "model": "llama2",  # ✅ or mistral/llama3 if you prefer
+        "messages": [
+            {
+                "role": "user",
+                "content": (
+                    f"Print Numbers 1-10"
+                )
+            }
+        ]
+    }
+
+    try:
+        response = requests.post(
+            "http://localhost:11434/api/chat",
+            json=payload
+        )
+        response.raise_for_status()
+
+        result = response.json()
+        game_text = result['message']['content']
+
+        return JSONResponse({"game": game_text})
+
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=500)
