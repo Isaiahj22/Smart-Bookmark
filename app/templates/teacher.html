@@ -1,44 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Smart Bookmark - Teacher Control</title>
-    
-    <!-- CSS Styles -->
-    <link rel="stylesheet" href="/static/css/teacher-style.css">
-    
-    <!-- Lottie Animation Library -->
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    
-    <!-- JS for Page Logic -->
-    <script src="/static/js/teacher.js" defer></script>
-
-    <!-- Quick fallback style (optional if no external file) -->
-    <style>
-      .highlight {
-        background-color: yellow;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
+  <meta charset="UTF-8">
+  <title>SmartBook - Teacher Control</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="/static/js/teacher.js" defer></script>
+  <style>
+    body {
+      background-color: #f6f1eb;
+      color: #3a3a3a;
+      font-family: 'Georgia', serif;
+      margin: 0;
+      padding: 0;
+    }
+    .teacher-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 30px;
+      animation: fadeIn 2s ease-out forwards;
+    }
+    #pageText {
+      font-size: 1.5em;
+      margin: 20px;
+      text-align: center;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 30px;
+      align-items: center;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    button {
+      background-color: white;
+      color: black;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: 2px solid black;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background-color: #f0f0f0;
+      transform: scale(1.05);
+    }
+    #animationArea, #quizArea {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #4CAF50;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-    </style>
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <h1>👩‍🏫 Smart Bookmark - Teacher Control</h1>
+  <div class="teacher-container">
+    <h1>👩‍🏫 SmartBook - Teacher Control</h1>
 
     <div id="pageText" class="story-text"></div>
 
     <div class="controls">
+      <div class="button-group">
         <button onclick="startReadAlong()">▶ Start Read-Along</button>
         <button onclick="stopReadAlong()">⏹ Stop Read-Along</button>
         <button onclick="toggleLanguage()">🌐 Switch Language</button>
+        <button onclick="nextPage()">➡ Next Page</button>
+      </div>
+
+      <div class="button-group">
         <button onclick="showAnimation()">✨ Play Animation</button>
         <button onclick="showVocabulary()">📖 Show Vocabulary</button>
         <button onclick="launchQuiz()">📝 Launch Quiz</button>
-        <button onclick="nextPage()">➡ Next Page</button>
+        <button onclick="window.location.href='/'">🏠 Back Home</button>
+      </div>
     </div>
 
-    <div id="animationArea" style="margin-top: 20px;"></div>
-    <div id="quizArea" style="margin-top: 20px;"></div>
+    <div id="animationArea"></div>
+    <div id="quizArea"></div>
+  </div>
 </body>
 </html>
