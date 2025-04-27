@@ -20,6 +20,11 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 def read_home(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
+@app.get("/signup-teacher", response_class=HTMLResponse)
+def signup_teacher(request: Request):
+    return templates.TemplateResponse("teacher.html", {"request": request})
+
+
 @app.get("/voice/{book_id}")
 def get_voice(book_id: str, lang: str = "en"):
     path = os.path.join(BASE_DIR, "audio", f"{book_id}_{lang}.mp3")
